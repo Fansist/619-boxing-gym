@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>619 Boxing Gym | Boxing &amp; Personal Training in San Diego</title>
+<meta name="description" content="619 Boxing Gym is a community-focused boxing gym in San Diego's Otay Mesa / San Ysidro area offering boxing training, strength &amp; conditioning, and personal training for all skill levels.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red: #d81e2c;
+    --red-dark: #a8121e;
+    --ink: #121212;
+    --charcoal: #1c1c1c;
+    --steel: #2b2b2b;
+    --paper: #f4f1ea;
+    --paper-dim: #e7e2d6;
+    --gold: #e8b23b;
+    --line: #3a3a3a;
+    --focus: #ffd54a;
+    --maxw: 1180px;
+    --radius: 4px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Barlow', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+
+  /* subtle grain texture for depth, fixed + pointer-events:none for perf */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    opacity:0.035;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    line-height:1.05;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.28em;
+    font-weight:600;
+    font-size:0.8rem;
+    color:var(--red);
+  }
+  /* on dark hero background, --red on --ink fails WCAG AA (~3.5:1); gold clears 9:1+ */
+  .hero .eyebrow{ color:var(--gold); }
+  p{margin:0 0 1rem;}
+  a{color:inherit;}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .container{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  /* Skip link */
+  .skip-link{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:var(--gold);
+    color:var(--ink);
+    padding:0.75rem 1.25rem;
+    z-index:1000;
+    font-weight:600;
+    border-radius:0 0 6px 0;
+  }
+  .skip-link:focus{ left:0; }
+
+  /* NAV */
+  .site-nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(18,18,18,0.96);
+    border-bottom:3px solid var(--red);
+    backdrop-filter:saturate(140%) blur(4px);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0.9rem 1.5rem;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    color:var(--paper);
+    text-decoration:none;
+    font-family:'Anton', sans-serif;
+    font-size:1.15rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+  }
+  .brand-mark{
+    width:36px;height:36px;flex:none;
+  }
+  .nav-links{
+    display:flex;
+    gap:1.75rem;
+    list-style:none;
+    margin:0;padding:0;
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-weight:600;
+    font-size:0.95rem;
+  }
+  .nav-links a{
+    color:var(--paper-dim);
+    text-decoration:none;
+    padding:0.4rem 0.1rem;
+    border-bottom:2px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{
+    color:#fff;
+    border-bottom-color:var(--red);
+  }
+  .nav-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    background:var(--red);
+    color:#fff !important;
+    text-decoration:none;
+    padding:0.55rem 1.1rem;
+    border-radius:3px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    font-size:0.9rem;
+    transition:background .2s ease, transform .2s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover, .nav-cta:focus-visible{ background:var(--red-dark); transform:translateY(-1px); }
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    border-radius:4px;
+    width:42px;height:42px;
+    align-items:center;
+    justify-content:center;
+    color:var(--paper);
+    cursor:pointer;
+    flex:none;
+  }
+  .nav-toggle:hover{ border-color:var(--red); }
+  .nav-toggle svg{ width:22px; height:22px; }
+  .nav-toggle .icon-close{ display:none; }
+  .nav-toggle[aria-expanded="true"] .icon-open{ display:none; }
+  .nav-toggle[aria-expanded="true"] .icon-close{ display:block; }
+
+  .mobile-menu{
+    display:none;
+    position:fixed;
+    inset:0;
+    top:0;
+    z-index:99;
+    background:rgba(18,18,18,0.98);
+    backdrop-filter:blur(6px);
+  }
+  .mobile-menu[data-open="true"]{ display:block; }
+  .mobile-menu-inner{
+    padding:6.5rem 1.75rem 2.5rem;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+  }
+  .mobile-menu ul{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+  }
+  .mobile-menu li{ border-bottom:1px solid var(--line); }
+  .mobile-menu a{
+    display:block;
+    padding:1.15rem 0.25rem;
+    color:var(--paper);
+    text-decoration:none;
+    font-family:'Anton', sans-serif;
+    font-size:1.5rem;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .mobile-menu a:hover, .mobile-menu a:focus-visible{ color:var(--gold); }
+  .mobile-menu-cta{ margin-top:2rem; justify-content:center; font-size:1rem; padding:0.9rem 1.1rem; }
+  body.menu-open{ overflow:hidden; }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    color:var(--paper);
+    background:
+      linear-gradient(160deg, rgba(18,18,18,0.94) 0%, rgba(18,18,18,0.86) 45%, rgba(60,10,14,0.88) 100%);
+    padding:5.5rem 0 5rem;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    z-index:-2;
+    background:var(--ink);
+  }
+  .hero-ring{
+    position:absolute;
+    z-index:-1;
+    opacity:0.5;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:2.5rem;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4.4rem);
+    color:#fff;
+    margin:0.5rem 0 1.25rem;
+  }
+  .hero h1 span{ color:var(--red); }
+  .hero-lede{
+    font-size:1.15rem;
+    max-width:46ch;
+    color:var(--paper-dim);
+  }
+  .hero-ctas{
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+    margin-top:1.75rem;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    padding:0.9rem 1.6rem;
+    border-radius:3px;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-size:1.02rem;
+    text-decoration:none;
+    border:2px solid transparent;
+    transition:transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn-primary{ background:var(--red); color:#fff; }
+  .btn-primary:hover, .btn-primary:focus-visible{ background:var(--red-dark); transform:translateY(-2px); }
+  .btn-outline{ border-color:var(--paper-dim); color:var(--paper); }
+  .btn-outline:hover, .btn-outline:focus-visible{ border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
+
+  .hero-visual{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .hero-badge-stack{ position:relative; }
+  .hero-badge-shadow{
+    position:absolute;
+    inset:14px -14px -14px 14px;
+    background:linear-gradient(160deg, rgba(216,30,44,0.35), rgba(232,178,59,0.18));
+    border-radius:10px;
+    z-index:0;
+  }
+  .hero-badge{
+    position:relative;
+    z-index:1;
+    background:var(--charcoal);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:2rem;
+    text-align:center;
+    box-shadow:0 25px 60px -20px rgba(0,0,0,0.7);
+  }
+  .hero-badge .num{
+    font-family:'Anton', sans-serif;
+    font-size:3.2rem;
+    color:var(--gold);
+    line-height:1;
+  }
+  .hero-badge .lbl{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.15em;
+    font-size:0.85rem;
+    color:var(--paper-dim);
+    margin-top:0.4rem;
+  }
+  .hero-badge hr{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:1.25rem 0;
+  }
+
+  /* SECTIONS GENERAL */
+  section{ padding:5rem 0; }
+  .section-head{
+    max-width:60ch;
+    margin-bottom:2.75rem;
+  }
+  .section-head h2{
+    font-size:clamp(2rem, 3.6vw, 2.8rem);
+    margin-top:0.4rem;
+  }
+  .alt-bg{ background:var(--paper-dim); }
+
+  /* reveal animation */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .services-grid .reveal:nth-child(1){ transition-delay:0ms; }
+  .services-grid .reveal:nth-child(2){ transition-delay:70ms; }
+  .services-grid .reveal:nth-child(3){ transition-delay:140ms; }
+  .services-grid .reveal:nth-child(4){ transition-delay:210ms; }
+  .services-grid .reveal:nth-child(5){ transition-delay:280ms; }
+  .highlights-grid .reveal:nth-child(1){ transition-delay:0ms; }
+  .highlights-grid .reveal:nth-child(2){ transition-delay:70ms; }
+  .highlights-grid .reveal:nth-child(3){ transition-delay:140ms; }
+  .highlights-grid .reveal:nth-child(4){ transition-delay:210ms; }
+  @media (prefers-reduced-motion: reduce){
+    .services-grid .reveal, .highlights-grid .reveal{ transition-delay:0ms !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+    align-items:start;
+  }
+  .about-copy p{ font-size:1.08rem; color:#2c2c2c; }
+  .about-figure{
+    background:var(--ink);
+    border-radius:8px;
+    padding:2.25rem;
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+  }
+  .about-figure svg{ width:100%; height:auto; }
+  .about-caption{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    font-size:0.85rem;
+    color:var(--gold);
+    margin-top:1rem;
+  }
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:1.5rem;
+  }
+  .service-card{
+    background:#fff;
+    border:1px solid #ddd6c4;
+    border-left:5px solid var(--red);
+    border-radius:6px;
+    padding:1.75rem;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .service-card:hover, .service-card:focus-within{
+    transform:translateY(-6px);
+    box-shadow:0 18px 34px -18px rgba(0,0,0,0.35);
+    border-left-color:var(--gold);
+  }
+  .service-icon{
+    width:44px; height:44px;
+    margin-bottom:1rem;
+    color:var(--red);
+  }
+  .service-card h3{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    font-size:1.2rem;
+    font-weight:700;
+    margin-bottom:0.5rem;
+  }
+  .service-card p{ font-size:0.98rem; color:#4a4a4a; margin:0; }
+
+  /* HIGHLIGHTS STRIP */
+  .highlights{
+    background:var(--ink);
+    color:var(--paper);
+    padding:3.5rem 0;
+  }
+  .highlights-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:2rem;
+  }
+  .highlight{
+    border-left:2px solid var(--red);
+    padding-left:1.25rem;
+  }
+  .highlight .hl-title{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    font-weight:700;
+    color:var(--gold);
+    font-size:1.05rem;
+    margin-bottom:0.35rem;
+  }
+  .highlight p{ color:var(--paper-dim); margin:0; font-size:0.98rem; }
+
+  /* FAQ */
+  .faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:0.9rem;
+    max-width:820px;
+  }
+  details.faq-item{
+    background:#fff;
+    border:1px solid #ddd6c4;
+    border-radius:6px;
+    padding:0;
+    overflow:hidden;
+  }
+  details.faq-item summary{
+    cursor:pointer;
+    list-style:none;
+    padding:1.25rem 1.5rem;
+    font-family:'Barlow Condensed', sans-serif;
+    font-weight:700;
+    font-size:1.1rem;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+  }
+  details.faq-item summary::-webkit-details-marker{ display:none; }
+  details.faq-item summary .chev{
+    flex:none;
+    width:22px; height:22px;
+    transition:transform .25s ease;
+    color:var(--red);
+  }
+  details.faq-item[open] summary .chev{ transform:rotate(180deg); }
+  details.faq-item .faq-a{
+    padding:0 1.5rem 1.35rem;
+    color:#4a4a4a;
+    font-size:1rem;
+  }
+  details.faq-item summary:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:-3px;
+  }
+
+  /* VISIT */
+  .visit-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2.5rem;
+  }
+  .visit-card{
+    background:var(--charcoal);
+    color:var(--paper);
+    border-radius:8px;
+    padding:2.25rem;
+  }
+  .visit-card dl{ margin:0; }
+  .visit-card dt{
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--gold);
+    font-size:0.85rem;
+    margin-top:1.4rem;
+  }
+  .visit-card dt:first-child{ margin-top:0; }
+  .visit-card dd{
+    margin:0.3rem 0 0;
+    font-size:1.1rem;
+  }
+  .visit-card a{ color:var(--paper); text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px; }
+  .visit-card a:hover, .visit-card a:focus-visible{ color:var(--gold); }
+  .map-card{
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid #ddd6c4;
+    display:flex;
+    flex-direction:column;
+  }
+  .map-visual{
+    flex:1;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(0,0,0,0.06) 28px),
+      repeating-linear-gradient(90deg, transparent, transparent 27px, rgba(0,0,0,0.06) 28px),
+      linear-gradient(135deg, #ece6d6, #ddd5bd);
+    min-height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:1.5rem;
+  }
+  .map-pin{ width:56px; height:56px; color:var(--red); }
+  .map-card-body{
+    background:#fff;
+    padding:1.5rem;
+  }
+  .map-link{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    font-weight:700;
+    letter-spacing:0.05em;
+    color:var(--red-dark);
+    text-decoration:none;
+  }
+  .map-link:hover, .map-link:focus-visible{ text-decoration:underline; }
+
+  /* FOOTER */
+  footer.site-footer{
+    background:var(--ink);
+    color:var(--paper-dim);
+    padding:3rem 0 2rem;
+  }
+  .footer-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:2rem;
+    padding-bottom:2rem;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-brand{
+    font-family:'Anton', sans-serif;
+    color:#fff;
+    text-transform:uppercase;
+    font-size:1.3rem;
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+  .footer-brand svg{ width:32px; height:32px; }
+  footer nav ul{
+    list-style:none;
+    display:flex;
+    gap:1.5rem;
+    padding:0; margin:0;
+    font-family:'Barlow Condensed', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    font-weight:600;
+  }
+  footer nav a{ color:var(--paper-dim); text-decoration:none; }
+  footer nav a:hover, footer nav a:focus-visible{ color:var(--gold); }
+  .footer-bottom{
+    padding-top:1.5rem;
+    font-size:0.88rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+    justify-content:space-between;
+    color:#8f8f8f;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; }
+    .about-grid{ grid-template-columns:1fr; }
+    .visit-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 720px){
+    .nav-links{ display:none; }
+    .nav-cta{ display:none; }
+    .nav-toggle{ display:inline-flex; }
+    section{ padding:3.5rem 0; }
+    .hero{ padding:3.5rem 0 3rem; }
+  }
+  @media (min-width: 721px){
+    .mobile-menu{ display:none !important; }
+  }
+</style>
+      <!-- SEO:START (generated by _seo_inject.js) -->
+    <link rel="canonical" href="https://fansist.github.io/619-boxing-gym/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="619 Boxing Gym" />
+    <meta property="og:title" content="619 Boxing Gym: Boxing Training in San Ysidro" />
+    <meta property="og:description" content="Boxing classes, strength and conditioning, personal training and kids boxing near San Ysidro." />
+    <meta property="og:url" content="https://fansist.github.io/619-boxing-gym/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="619 Boxing Gym: Boxing Training in San Ysidro" />
+    <meta name="twitter:description" content="Boxing classes, strength and conditioning, personal training and kids boxing near San Ysidro." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SportsActivityLocation","name":"619 Boxing Gym","url":"https://fansist.github.io/619-boxing-gym/","telephone":"(619) 257-7147","address":{"@type":"PostalAddress","streetAddress":"6120 Business Center Ct, Ste F-100","addressLocality":"San Diego","addressRegion":"CA","postalCode":"92154","addressCountry":"US"},"description":"A brand-new, community-focused boxing gym in San Diego's south side offering professional boxing training, strength & conditioning, and personal training for kids and adults of all skill levels. Reviewers praise the extremely knowledgeable, experienced, and welcoming coaching staff, calling it a...","areaServed":{"@type":"City","name":"San Diego"}}</script>
+    <!-- SEO:END -->
+  </head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="619 Boxing Gym, home">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="#d81e2c" stroke-width="3"/>
+        <path d="M14 30V20a4 4 0 0 1 4-4h4l2 3h4a4 4 0 0 1 4 4v7a5 5 0 0 1-5 5H19a5 5 0 0 1-5-5Z" fill="#d81e2c"/>
+        <circle cx="24" cy="26" r="3.2" fill="#121212"/>
+      </svg>
+      619 Boxing Gym
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Training</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a class="nav-cta" href="tel:+16192577147" aria-label="Call 619 Boxing Gym at (619) 257-7147">
+      Call (619) 257-7147
+    </a>
+    <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" data-open="false">
+  <div class="mobile-menu-inner">
+    <nav aria-label="Mobile navigation">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Training</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary mobile-menu-cta" href="tel:+16192577147">Call (619) 257-7147</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <svg class="hero-ring" width="620" height="620" style="right:-160px; top:-120px;" viewBox="0 0 620 620" aria-hidden="true">
+      <circle cx="310" cy="310" r="300" stroke="#d81e2c" stroke-width="1.5" fill="none" opacity="0.4"/>
+      <circle cx="310" cy="310" r="230" stroke="#e8b23b" stroke-width="1" fill="none" opacity="0.35"/>
+    </svg>
+    <div class="container hero-grid">
+      <div class="reveal in-view">
+        <p class="eyebrow">Otay Mesa / San Ysidro &middot; San Diego</p>
+        <h1>Train Boxing.<br>Build <span>Real</span> Strength.</h1>
+        <p class="hero-lede">A community-focused boxing gym on San Diego's south side, professional boxing training, strength &amp; conditioning, and personal training for kids and adults, every skill level welcome.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="tel:+16192577147">Call to Start Training</a>
+          <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=619%20Boxing%20Gym%206120%20Business%20Center%20Ct%20Ste%20F-100%20San%20Diego%20CA%2092154" target="_blank" rel="noopener">Get Directions</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal in-view">
+        <div class="hero-badge-stack">
+          <div class="hero-badge-shadow" aria-hidden="true"></div>
+          <div class="hero-badge">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+              <path d="M18 40V27a5 5 0 0 1 5-5h5l2.5 4h5.5a5 5 0 0 1 5 5v9a7 7 0 0 1-7 7H25a7 7 0 0 1-7-7Z" fill="#d81e2c"/>
+              <circle cx="32" cy="34" r="4" fill="#121212"/>
+            </svg>
+            <div class="num">Free</div>
+            <div class="lbl">First Session</div>
+            <hr>
+            <div class="num" style="font-size:1.6rem;">Mon, Sat</div>
+            <div class="lbl">Flexible Hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-copy reveal">
+        <p class="eyebrow">About the Gym</p>
+        <h2>A No-Frills Corner To Get In Real Fighting Shape</h2>
+        <p>619 Boxing Gym is a brand-new, community-focused boxing gym in San Diego's south side offering professional boxing training, strength &amp; conditioning, and personal training for kids and adults of all skill levels.</p>
+        <p>Reviewers praise the extremely knowledgeable, experienced, and welcoming coaching staff, calling it a very professional boxing gym with affordable prices and flexible hours. The gym offers a free first session and prides itself on a supportive, high-energy community atmosphere for beginners and competitive boxers alike.</p>
+        <p>Expect a clean, modern, garage-style space and hands-on coaching, no-frills training built around the neighborhood.</p>
+      </div>
+      <div class="about-figure reveal">
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a boxing ring corner with a heavy bag, hand wraps, and hanging gloves">
+          <rect x="0" y="0" width="400" height="320" fill="#1c1c1c"/>
+          <line x1="20" y1="40" x2="20" y2="280" stroke="#3a3a3a" stroke-width="6"/>
+          <line x1="20" y1="60" x2="380" y2="60" stroke="#e8b23b" stroke-width="4"/>
+          <line x1="20" y1="120" x2="380" y2="120" stroke="#d81e2c" stroke-width="4"/>
+          <line x1="20" y1="180" x2="380" y2="180" stroke="#e8b23b" stroke-width="4"/>
+          <!-- heavy bag -->
+          <line x1="300" y1="26" x2="300" y2="60" stroke="#4a4a4a" stroke-width="3"/>
+          <rect x="282" y="60" width="36" height="120" rx="18" fill="#2b2b2b" stroke="#4a4a4a" stroke-width="2"/>
+          <line x1="282" y1="90" x2="318" y2="90" stroke="#4a4a4a" stroke-width="1.5" opacity="0.7"/>
+          <line x1="282" y1="120" x2="318" y2="120" stroke="#4a4a4a" stroke-width="1.5" opacity="0.7"/>
+          <line x1="282" y1="150" x2="318" y2="150" stroke="#4a4a4a" stroke-width="1.5" opacity="0.7"/>
+          <!-- hand wraps hanging -->
+          <path d="M92 60c0 30-10 46-10 70" stroke="#e8b23b" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+          <path d="M108 60c4 26-6 44-2 66" stroke="#d81e2c" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+          <!-- ring corner post detail -->
+          <circle cx="200" cy="230" r="55" fill="none" stroke="#d81e2c" stroke-width="3" opacity="0.7"/>
+          <path d="M170 235v-25a12 12 0 0 1 12-12h12l6 9h13a12 12 0 0 1 12 12v22a17 17 0 0 1-17 17h-21a17 17 0 0 1-17-17Z" fill="#d81e2c"/>
+          <circle cx="200" cy="238" r="7" fill="#1c1c1c"/>
+          <path d="M170 210l-14-14M230 210l14-14" stroke="#e8b23b" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+        <p class="about-caption">Boxing &middot; Strength &amp; Conditioning &middot; Personal Training</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="alt-bg">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Training Programs</p>
+        <h2>What You'll Train</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M14 30V20a4 4 0 0 1 4-4h4l2 3h4a4 4 0 0 1 4 4v7a5 5 0 0 1-5 5H19a5 5 0 0 1-5-5Z" fill="currentColor"/><circle cx="24" cy="26" r="3" fill="#f4f1ea"/></svg>
+          <h3>Boxing Training &amp; Classes</h3>
+          <p>Core boxing instruction covering technique, footwork, and pad work for every skill level.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="6" y="21" width="8" height="6" rx="1" fill="currentColor"/><rect x="34" y="21" width="8" height="6" rx="1" fill="currentColor"/><rect x="14" y="23" width="20" height="2" fill="currentColor"/></svg>
+          <h3>Strength &amp; Conditioning</h3>
+          <p>Full-body conditioning work built to support power, endurance, and boxing performance.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="18" cy="16" r="6" fill="currentColor"/><path d="M8 40c0-8 6-13 10-13s10 5 10 13" fill="currentColor"/><circle cx="34" cy="19" r="4" fill="currentColor" opacity="0.6"/></svg>
+          <h3>Personal Training</h3>
+          <p>One-on-one coaching tailored to your goals, from first-timers to competitive boxers.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="16" cy="14" r="5" fill="currentColor"/><circle cx="32" cy="14" r="5" fill="currentColor"/><path d="M6 38c0-7 5-12 10-12s10 5 10 12M22 38c0-7 5-12 10-12s10 5 10 12" fill="currentColor" opacity="0.85"/></svg>
+          <h3>Kids Boxing Classes</h3>
+          <p>Weekday kids classes from 4-5pm in a supportive, high-energy environment.</p>
+        </div>
+        <div class="service-card reveal">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 24h32M8 24l6-6M8 24l6 6M40 24l-6-6M40 24l-6 6" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Beginner Through Advanced</h3>
+          <p>Classes structured so newcomers and experienced boxers can train and progress together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="highlights">
+    <div class="container highlights-grid">
+      <div class="highlight reveal">
+        <div class="hl-title">South Bay Location</div>
+        <p>Based in the Otay Mesa / San Ysidro area of San Diego, serving the south side community.</p>
+      </div>
+      <div class="highlight reveal">
+        <div class="hl-title">Welcoming Coaching Staff</div>
+        <p>Reviewers describe coaches the coach and the coaches as knowledgeable, experienced, and welcoming.</p>
+      </div>
+      <div class="highlight reveal">
+        <div class="hl-title">Free First Session</div>
+        <p>New to boxing or new to the gym? Your first session is offered free.</p>
+      </div>
+      <div class="highlight reveal">
+        <div class="hl-title">Flexible Hours</div>
+        <p>Open Monday through Saturday with hours designed to fit around your schedule.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Questions</p>
+        <h2>Good To Know</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item reveal">
+          <summary>Do I need boxing experience to start?<svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="faq-a"><p>No. 619 Boxing Gym offers classes for beginners through advanced boxers, so you can start at your own level and progress from there.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Is there a class for kids?<svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="faq-a"><p>Yes. Kids boxing classes run on weekdays from 4-5pm.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can I try a class before committing?<svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="faq-a"><p>Yes, the gym offers a free first session so you can see the space, meet the coaches, and try a class before deciding.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>What kind of training is offered besides boxing?<svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="faq-a"><p>Alongside boxing training and classes, the gym offers strength &amp; conditioning and personal training for a well-rounded program.</p></div>
+        </details>
+        <details class="faq-item reveal">
+          <summary>What are the gym's hours?<svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <div class="faq-a"><p>Monday through Friday, 8am, 8pm, and Saturday 8am, 2pm.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit" class="alt-bg">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Visit Us</p>
+        <h2>Come Train In Person</h2>
+      </div>
+      <div class="visit-grid">
+        <div class="visit-card reveal">
+          <dl>
+            <dt>Address</dt>
+            <dd>6120 Business Center Ct, Ste F-100<br>San Diego, CA 92154</dd>
+            <dt>Phone</dt>
+            <dd><a href="tel:+16192577147">(619) 257-7147</a></dd>
+            <dt>Hours</dt>
+            <dd>Monday, Friday: 8am, 8pm<br>Saturday: 8am, 2pm<br>Sunday: Closed</dd>
+            <dt>Neighborhood</dt>
+            <dd>Otay Mesa / San Ysidro area, San Diego</dd>
+          </dl>
+        </div>
+        <div class="map-card reveal">
+          <div class="map-visual">
+            <svg class="map-pin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8Z" fill="#d81e2c"/>
+              <circle cx="12" cy="10" r="3" fill="#f4f1ea"/>
+            </svg>
+          </div>
+          <div class="map-card-body">
+            <p style="margin-bottom:1rem;">6120 Business Center Ct, Ste F-100, San Diego, CA 92154</p>
+            <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=619%20Boxing%20Gym%206120%20Business%20Center%20Ct%20Ste%20F-100%20San%20Diego%20CA%2092154" target="_blank" rel="noopener">
+              Open in Google Maps
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="#d81e2c" stroke-width="3"/><path d="M14 30V20a4 4 0 0 1 4-4h4l2 3h4a4 4 0 0 1 4 4v7a5 5 0 0 1-5 5H19a5 5 0 0 1-5-5Z" fill="#d81e2c"/></svg>
+        619 Boxing Gym
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Training</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#visit">Visit</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>619 Boxing Gym &middot; 6120 Business Center Ct, Ste F-100, San Diego, CA 92154</span>
+      <span><a href="tel:+16192577147" style="color:inherit;">(619) 257-7147</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if(prefersReduced || !('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function(el){ obs.observe(el); });
+  })();
+
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileMenu');
+    if(!toggle || !menu) return;
+
+    function closeMenu(){
+      menu.setAttribute('data-open', 'false');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+      document.body.classList.remove('menu-open');
+    }
+    function openMenu(){
+      menu.setAttribute('data-open', 'true');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+      document.body.classList.add('menu-open');
+      var firstLink = menu.querySelector('a');
+      if(firstLink) firstLink.focus();
+    }
+    toggle.addEventListener('click', function(){
+      var isOpen = menu.getAttribute('data-open') === 'true';
+      isOpen ? closeMenu() : openMenu();
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeMenu();
+    });
+  })();
+</script>
+
+</body>
+</html>
